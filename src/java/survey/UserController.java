@@ -19,6 +19,7 @@ public class UserController implements Serializable {
     String UserLname=null;
     String UserEmail=null;
     String response=null;
+    int userID = 0;
     
     // this class uses hibernate to query the user table
     UserHelper helper;
@@ -55,12 +56,22 @@ public class UserController implements Serializable {
     public void setUserEmail(String UserEmail) {
         this.UserEmail = UserEmail;
     }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+    
+    
     
     public void clear(){
         UserEmail=null;
         UserFname=null;
         UserLname=null;
-        //user=null;
+        user=null;
         response=null;
         
     }

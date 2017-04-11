@@ -16,29 +16,16 @@ import javax.faces.model.ListDataModel;
 @SessionScoped
 public class deleteSurveyController implements Serializable {
 
-    DataModel questions;
     DataModel surveyTitle;
-    int questionId;
     int surveyId;
     String response;
+    int deleteSurvey;
         
     deleteSurveyHelper helper;
     
     public deleteSurveyController() {
         helper = new deleteSurveyHelper();
-        questionId = 0;
-        surveyId = 0;
     }
-     public DataModel getQuestions() {
-         if(questions == null){
-             questions = new ListDataModel (helper.getQuestions(questionId));            
-         }
-         return questions;
-    }
-     
-     public void setQuestions(DataModel questions){
-         this.questions = questions;
-     }
 
     public DataModel getSurveyTitle() {
         if(surveyTitle == null){
@@ -59,17 +46,30 @@ public class deleteSurveyController implements Serializable {
         this.surveyId = surveyId;
     }
 
+    public int deleteSurvey(int surveyId) {
+        int id = helper.deleteSurvey(surveyId);
+        return id;       
+    }
+
+    public void setDeleteSurvey(int deleteSurvey) {
+        this.deleteSurvey = surveyId;
+    }
+
     public String getResponse() {
-        String response = null;
+        response = null;
         
-        
+            
+            if(helper.deleteSurvey(surveyId) == 1){
+                surveyId = getSurveyId();
+                response = "A survey was deleted";
+            }else{
+                response = "A survey was not deleted";
+            }
         return response;
-        
     }
 
     public void setResponse(String response) {
         this.response = response;
-        
     }
      
     

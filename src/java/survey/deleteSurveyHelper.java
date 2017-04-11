@@ -24,42 +24,12 @@ public class deleteSurveyHelper {
         }
 }
     
-    public int getSurveyId(){
-        
-        List<Survey> surveyList = null;
-        
-        String sql = "select * from survey order by Survey_ID desc limit 1";
-        
-        try{
-             
-         // if this transaction is not active, make it active
-            if(!this.session.getTransaction().isActive()){
-                session.beginTransaction();
-            }
-            
-            // creating actual query that will be executed against the database
-            SQLQuery q = session.createSQLQuery(sql);
-            
-            // associating the actor table and the actor POJO
-            q.addEntity(Survey.class);
-            
-            // executes the query and returns it as a list
-            surveyList = (List<Survey>)q.list();
-            
-                       
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        
-        return surveyList.get(0).getSurveyId();
-    }
-    
     public List getSurveyTitleByID(int surveyId){
         
         List<Survey> surveyList = null;
         
-        //String sql = "select * from survey order by Survey_Name desc limit 1";
-        String sql = "select * from survey order by Survey_Name desc limit 10";
+        String sql = "select * from survey order by Survey_ID limit :start, :end";
+        //String sql = "select * from survey order by Survey_Name limit 10";
         
         try{
              
@@ -74,8 +44,8 @@ public class deleteSurveyHelper {
             // associating the actor table and the actor POJO
             q.addEntity(Survey.class);
             
-            //q.setParameter("start", surveyId);
-            //q.setParameter("end", 2);
+            q.setParameter("start", surveyId);
+            q.setParameter("end", 10);
             
             // executes the query and returns it as a list
             //survey = (Survey) q.uniqueResult();
@@ -88,13 +58,17 @@ public class deleteSurveyHelper {
         return surveyList;
     }
     
-    public List getQuestions (int questionId){
-        List<Question> questionList = null;
+    private int deleteFromSurveyRespondent(int surveyId){
         
         
-        String sql = "select * from question order by Question_Text limit :start, :end";
+        int result = 0;
+ 
+        
+        String sql = "delete from survey_respondent where Survey_ID = :surveyId";
         
         try{
+             
+         // if this transaction is not active, make it active
             if(!this.session.getTransaction().isActive()){
                 session.beginTransaction();
             }
@@ -102,27 +76,30 @@ public class deleteSurveyHelper {
             // creating actual query that will be executed against the database
             SQLQuery q = session.createSQLQuery(sql);
             
-            q.addEntity(Question.class);
+            // associating the survey respondent table and the actor POJO
+            q.addEntity(SurveyRespondent.class);
             
-            q.setParameter("start", questionId);
-            q.setParameter("end", 10);
+            q.setParameter("surveyId", surveyId);
             
-            questionList = (List<Question>) q.list();
-            //question = (Question) q.uniqueResult();
+            // executes the query and returns it as a list
+            //surveyRespondentList = (List<SurveyRespondent>) q.list();
+            result = q.executeUpdate();
             
+            session.getTransaction().commit();
+            
+                       
         }catch (Exception e){
             e.printStackTrace();
         }
-        //return question;
-        return questionList;
+        
+        return result;
     }
     
-    public int deleteSurvey(int surveyId){
-        //first delete from survey
+    private int deleteFromQuestion(int surveyId){
+        
         int result = 0;
         
-        
-        String sql = "delete from survey where Survey_ID = :survey";
+        String sql = "delete from question where Survey_ID = :surveyId";
         
         try{
              
@@ -137,14 +114,65 @@ public class deleteSurveyHelper {
             // associating the actor table and the actor POJO
             q.addEntity(Question.class);
             
-            q.setParameter("survey", 1);
+            q.setParameter("surveyId", surveyId);
             
             // executes the query and returns it as a list
             result = q.executeUpdate();
             
+            session.getTransaction().commit();
                        
         }catch (Exception e){
             e.printStackTrace();
+        }
+        
+        return result;
+    }
+    
+    private int deleteFromSurvey(int surveyId){
+        
+        int result = 0;
+        
+        
+        String sql = "delete from survey where Survey_ID = :surveyId";
+        
+        try{
+             
+         // if this transaction is not active, make it active
+            if(!this.session.getTransaction().isActive()){
+                session.beginTransaction();
+            }
+            
+            // creating actual query that will be executed against the database
+            SQLQuery q = session.createSQLQuery(sql);
+            
+            // associating the actor table and the actor POJO
+            q.addEntity(Survey.class);
+            
+            q.setParameter("surveyId", surveyId);
+            
+            // executes the query and returns it as a list
+            result = q.executeUpdate();
+            
+            session.getTransaction().commit();
+            
+                       
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        
+        return result;
+    }
+    
+    public int deleteSurvey(int surveyId){
+        
+        int result = 0;
+        
+        int questionResults = deleteFromQuestion(surveyId);
+        int surveyRespondentResults = deleteFromSurveyRespondent(surveyId);       
+        int surveyResults = deleteFromSurvey(surveyId);
+        
+        if(surveyRespondentResults == 1 && questionResults == 1 && surveyResults == 1){
+            result = surveyId;
         }
         
         return result;

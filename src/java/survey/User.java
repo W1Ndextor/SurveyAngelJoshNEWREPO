@@ -35,7 +35,8 @@ public class User  implements java.io.Serializable {
    
     public int getUserId() {
         return this.userId;
-    }       
+    } 
+    
     
     public void setUserId(int userId) {
         this.userId = userId;
