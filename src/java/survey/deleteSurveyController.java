@@ -4,7 +4,6 @@ package survey;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.List;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
@@ -20,8 +19,12 @@ public class deleteSurveyController implements Serializable {
     int surveyId;
     String response;
     int deleteSurvey;
+    int userIdArg;
+    int surveyIdArg;
+    int userId;
         
     deleteSurveyHelper helper;
+    Survey survey;
     
     public deleteSurveyController() {
         helper = new deleteSurveyHelper();
@@ -29,7 +32,7 @@ public class deleteSurveyController implements Serializable {
 
     public DataModel getSurveyTitle() {
         if(surveyTitle == null){
-            surveyTitle = new ListDataModel(helper.getSurveyTitleByID(surveyId));
+            surveyTitle = new ListDataModel(helper.getSurveyTitleByID(surveyId, userId));
         }
         return surveyTitle;
     }
@@ -46,30 +49,27 @@ public class deleteSurveyController implements Serializable {
         this.surveyId = surveyId;
     }
 
-    public int deleteSurvey(int surveyId) {
-        int id = helper.deleteSurvey(surveyId);
-        return id;       
+    public String deleteSurvey(int surveyId) {
+        helper.deleteSurvey(surveyId);
+        return "index";       
     }
 
     public void setDeleteSurvey(int deleteSurvey) {
         this.deleteSurvey = surveyId;
     }
 
-    public String getResponse() {
-        response = null;
-        
-            
-            if(helper.deleteSurvey(surveyId) == 1){
-                surveyId = getSurveyId();
-                response = "A survey was deleted";
-            }else{
-                response = "A survey was not deleted";
-            }
-        return response;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setResponse(String response) {
-        this.response = response;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
+    public String getUserIds(int surveyIdArg, int userIdArg){
+        surveyId = surveyIdArg;
+        userId = userIdArg;
+        return "deleteSurvey";
     }
      
     

@@ -69,10 +69,11 @@
                 </h:panelGrid>
             <!-- this needs to go into my code //the question controller will now have the survey id to insert into the database done-->
             <h:inputHidden id ="hidden" value="#{questionController.surveyID}" />
+            <h:inputHidden id="hiddens" value="#{questionController.userID}" />
             
            <!-- //the question controller will now have the survey id to insert into the database done-->
                         <h:commandButton id="Submit" value="Submit" onclick="reset" action="question" />
-                        <h:commandButton id="Next" value="Next" onclick="#{surveyController.clear()}" action="#{respondentController.getSurveyIds(questionController.surveyID)}" />
+                        <h:commandButton id="Next" value="Next" onclick="#{surveyController.clear()}" action="#{respondentController.getSurveyIds(questionController.surveyID, questionController.userID)}" />
                         <h:commandButton value="Clear" type="reset" />
         </h:form>
         <h:outputText escape="false" value="#{questionController.response}" />

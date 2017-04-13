@@ -24,11 +24,11 @@ public class deleteSurveyHelper {
         }
 }
     
-    public List getSurveyTitleByID(int surveyId){
+    public List getSurveyTitleByID(int surveyId, int userId){
         
         List<Survey> surveyList = null;
         
-        String sql = "select * from survey order by Survey_ID limit :start, :end";
+        String sql = "select * from survey where User_ID = :userId";
         //String sql = "select * from survey order by Survey_Name limit 10";
         
         try{
@@ -44,8 +44,8 @@ public class deleteSurveyHelper {
             // associating the actor table and the actor POJO
             q.addEntity(Survey.class);
             
-            q.setParameter("start", surveyId);
-            q.setParameter("end", 10);
+            //q.setParameter("surveyId", surveyId);
+            q.setParameter("userId", userId);
             
             // executes the query and returns it as a list
             //survey = (Survey) q.uniqueResult();
@@ -171,8 +171,8 @@ public class deleteSurveyHelper {
         int surveyRespondentResults = deleteFromSurveyRespondent(surveyId);       
         int surveyResults = deleteFromSurvey(surveyId);
         
-        if(surveyRespondentResults == 1 && questionResults == 1 && surveyResults == 1){
-            result = surveyId;
+        if(surveyRespondentResults == 0 && questionResults == 0 && surveyResults == 0){
+            result = 1;
         }
         
         return result;

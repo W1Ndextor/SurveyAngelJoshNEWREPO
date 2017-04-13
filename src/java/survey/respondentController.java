@@ -24,6 +24,8 @@ public class respondentController implements Serializable {
     int surveyId;
     int respondentId;
     int surveyIdArg;
+    int userIdArd;
+    int userID;
     
     respondentHelper helper;
     
@@ -85,9 +87,20 @@ public class respondentController implements Serializable {
     public void setSurveyId(int surveyId) {
         this.surveyId = surveyId;
     }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
     
-     public String getSurveyIds(int surveyIdArg){
+    
+    
+     public String getSurveyIds(int surveyIdArg, int userIdArg){
         surveyId = surveyIdArg;
+        userID = userIdArg;
         return "respondent";
     }
    
@@ -112,70 +125,7 @@ public class respondentController implements Serializable {
     //heres a second demo for pushing
     
     public void dropItHard() {
-      /* respondentEmail=null;
-       respondentEmail1=null;
-       respondentEmail2=null;
-       respondentEmail3=null;
-       respondentEmail4=null;
-       emailAddress=null;
-       surveyId=0;
-       surveyIdArg=0;
-       
-        surveyController surveyController = new surveyController();
-        //UserController UserController = new UserController();
-        surveyController.surveyID=0;
-        surveyController.survey=null;
-        surveyController.surveyName=null;
-     
-        //gitsurveyController.surveyID=0;*/
-        //user
-       /* UserController UserController = new UserController();
-         UserController.setUserFname(null);
-    UserController.setUserLname(null);
-    UserController.setUserEmail(null);
-    UserController.setResponse(null);
-    
-    // this class uses hibernate to query the user table
-    UserController.helper=null;
-    
-    UserController.user=null;
-    
-    //survey
-     surveyController surveyController = new surveyController();
-    surveyController.setSurveyName(null);
-    surveyController.setUserID(0);
-    surveyController.setResponse(null);
-    surveyController.setSurveyID(0);
-    surveyController.helper=null;
-    surveyController.survey=null;
-    
-    //question
-     QuestionController questionController = new QuestionController();
-    questionController.setQuestionText(null);
-    questionController.setQuestionText1(null);
-    questionController.setQuestionText2(null);
-    questionController.setQuestionText3(null);
-    questionController.setQuestionText4(null);
-    questionController.setQuestionText5(null);
-    questionController.setQuestionText6(null);
-    questionController.setQuestionText7(null);
-    questionController.setQuestionText8(null);
-    questionController.setQuestionText9(null);
-    
-    
-    questionController.setSurveyID(0);
-    questionController.setResponse(null);
-    questionController.SurveyIdArg=0;//make getter and setter?
-    //int surveyID;
-    /**
-     * Creates a new instance of QuestionController
-     */
-/*
-    questionController.helper=null;
-
-    questionController.question=null;*/
-    
-    //respondent
+      
     respondentEmail=null;
     respondentEmail1=null;
     respondentEmail2=null;
@@ -185,7 +135,7 @@ public class respondentController implements Serializable {
     
     surveyId=getSurveyId();
     respondentId=0;
-    surveyIdArg=0;
+    //surveyIdArg=0;
     
     helper=null;
     
@@ -209,10 +159,12 @@ public class respondentController implements Serializable {
             if(helper.insert(respondentEmail, surveyId)== 1){
                 respondentEmail = null;
                 surveyId = getSurveyId();
+                userID = getUserID();
                 response = "A Respondent Was Added.";
             }else{
                 respondentEmail = null;
                 surveyId = getSurveyId();
+                userID = getUserID();
                 response = "A Respondent Was Not Added.";
             }
         }
@@ -225,10 +177,12 @@ public class respondentController implements Serializable {
             if(helper.insert(respondentEmail1, surveyId)== 1){
                 respondentEmail1 = null;                
                 surveyId = getSurveyId();
+                userID = getUserID();
                 response = "Two Respondents Were Added.";
             }else{
                 respondentEmail1 = null;
                 surveyId = getSurveyId();
+                userID = getUserID();
                 response = "Two Respondents Were Not Added.";
             }
         }    
@@ -241,10 +195,12 @@ public class respondentController implements Serializable {
             if(helper.insert(respondentEmail2, surveyId)== 1){
                 respondentEmail2 = null;
                 surveyId = getSurveyId();
+                userID = getUserID();
                 response = "Three Respondents Were Added.";
             }else{
                 respondentEmail2 = null;
                 surveyId = getSurveyId();
+                userID = getUserID();
                 response = "Three Respondents Were Not Added.";
             }
         }
@@ -257,10 +213,12 @@ public class respondentController implements Serializable {
             if(helper.insert(respondentEmail3, surveyId)== 1){
                 respondentEmail3 = null;
                 surveyId = getSurveyId();
+                userID = getUserID();
                 response = "Four Respondents Were Added.";
             }else{
                 respondentEmail3 = null;
                 surveyId = getSurveyId();
+                userID = getUserID();
                 response = "Four Respondents Were Not Added.";
             }
         } 
@@ -273,10 +231,12 @@ public class respondentController implements Serializable {
             if(helper.insert(respondentEmail4, surveyId)== 1){
                 respondentEmail4 = null;
                 surveyId = getSurveyId();
+                userID = getUserID();
                 response = "Five Respondents Were Added.";
             }else{
                 respondentEmail4 = null;
                 surveyId = getSurveyId();
+                userID = getUserID();
                 response = "Five Respondents Were Not Added.";
             }
         } 

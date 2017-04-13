@@ -90,7 +90,6 @@ public class respondentHelper {
     
     private int insertSurveyRespondent(int respondent, int survey){
         
-        //SurveyRespondent surveyRespondent = null;
         int result = 0;
        
         String sql = "insert into survey_respondent(Survey_ID, Respondent_ID)"

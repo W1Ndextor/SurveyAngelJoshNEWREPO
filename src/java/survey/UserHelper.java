@@ -1,6 +1,7 @@
 
 package survey;
 
+import java.util.List;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 /**

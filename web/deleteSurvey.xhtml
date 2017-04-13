@@ -16,13 +16,18 @@
                     <h:outputText value="#{item.surveyName}" />
                 </h:column>
                 
-                <h:column> 
-                    <h:commandButton value="Delete Survey" action="#{deleteSurveyController.deleteSurvey(item.surveyId)}" />
-                   
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value=" "></h:outputText>
+                    </f:facet>
+                        <h:commandLink action="#{deleteSurveyController.deleteSurvey(item.surveyId)}" value="Delete Survey" />                      
                 </h:column>
             </h:dataTable>
-               <h:commandButton id="Next" value="Next" onclick="#{respondentController.dropItHard()}" action="index.xhtml" />
+            <h:inputHidden id ="hiddens" value="#{deleteSurveyController.surveyId}" />
+            <h:inputHidden id="hidden" value="#{deleteSurveyController.userId}" />
+            
         </h:form>
+        
     </ui:define>
     
 

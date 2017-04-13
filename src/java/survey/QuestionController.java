@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package survey;
 
 import javax.inject.Named;
@@ -30,7 +26,10 @@ public class QuestionController implements Serializable {
     int surveyID;
     String response;
     int SurveyIdArg;
-    //int surveyID;
+    int userIdArg;
+    int userID;
+    
+    
     /**
      * Creates a new instance of QuestionController
      */
@@ -139,8 +138,17 @@ public class QuestionController implements Serializable {
         this.surveyID = surveyID;
     }
 
-    public String getQuestions(int IDArg) {
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public String getQuestions(int IDArg, int userIdArg) {
         surveyID = IDArg;
+        userID = userIdArg;
         return "question";
     }
 
@@ -155,42 +163,26 @@ public class QuestionController implements Serializable {
         questionText7 = null;
         questionText8 = null;
         questionText9 = null;
-        //surveyID=0;
-       // surveyID=getSurveyID();
-        surveyController surveyController = new surveyController();
-        //UserController UserController = new UserController();
-        surveyController.userID=0;
-        
+     
         question=null;
-        SurveyIdArg=0;
         response=null;
         
-        
-        
-        //surveyController.surveyID=0;
-        //gitsurveyController.surveyID=0;
-        
-
     }
 
     //create emthod that tales survbey id takes the parameter and assigns it to the survey id field then retruns a string named question to display the page--done
     //it sets the value so it can be use in get resposne -- done
     public String getResponse() {
         response = null;
-        // surveyID = 
-        // surveyID=getSurveyID();
-        //surveyID = getSurvey();
 
         //loops here changing questiontext to "questiontext"1 ""2 "" 3...""10
         //case blocks would also work for each questiontext
         if (questionText != null && surveyID >= 0 && !questionText.isEmpty()) {
 
-            //  getSurveyID();
-            // question = new Question(questionText, surveyID);
+
             if (helper.insertQuestion(questionText, surveyID) == 1) {
                 questionText = null;
                 surveyID = getSurveyID();
-                //surveyID = 0;
+                userID = getUserID();
                 response = "1 Question Added.";
                 //return response;
             }/*else{
@@ -212,6 +204,7 @@ public class QuestionController implements Serializable {
             if (helper.insertQuestion(questionText1, surveyID) == 1) {
                 questionText1 = null;
                 surveyID = getSurveyID();
+                userID = getUserID();
                 //surveyID = 0;
                 response = "2 Questions Added.";
                 //return response;
@@ -233,6 +226,7 @@ public class QuestionController implements Serializable {
             if (helper.insertQuestion(questionText2, surveyID) == 1) {
                 questionText2 = null;
                 surveyID = getSurveyID();
+                userID = getUserID();
                 //surveyID = 0;
                 response = "3 Questions Added.";
                 //return response;
@@ -254,6 +248,7 @@ public class QuestionController implements Serializable {
             if (helper.insertQuestion(questionText3, surveyID) == 1) {
                 questionText3 = null;
                 surveyID = getSurveyID();
+                userID = getUserID();
                 //surveyID = 0;
                 response = "4 Questions Added.";
                 // return response;
@@ -275,6 +270,7 @@ public class QuestionController implements Serializable {
             if (helper.insertQuestion(questionText4, surveyID) == 1) {
                 questionText4 = null;
                 surveyID = getSurveyID();
+                userID = getUserID();
                 //surveyID = 0;
                 response = "5 Questions Added.";
                 //return response;
@@ -296,6 +292,7 @@ public class QuestionController implements Serializable {
             if (helper.insertQuestion(questionText5, surveyID) == 1) {
                 questionText5 = null;
                 surveyID = getSurveyID();
+                userID = getUserID();
                 //surveyID = 0;
                 response = "6 Questions Added.";
                 //return response;
@@ -317,6 +314,7 @@ public class QuestionController implements Serializable {
             if (helper.insertQuestion(questionText6, surveyID) == 1) {
                 questionText6 = null;
                 surveyID = getSurveyID();
+                userID = getUserID();
                 //surveyID = 0;
                 response = "7 Questions Added.";
                 //return response;
@@ -338,6 +336,7 @@ public class QuestionController implements Serializable {
             if (helper.insertQuestion(questionText7, surveyID) == 1) {
                 questionText7 = null;
                 surveyID = getSurveyID();
+                userID = getUserID();
                 //surveyID = 0;
                 response = "8 Questions Added.";
                 //return response;
@@ -359,6 +358,7 @@ public class QuestionController implements Serializable {
             if (helper.insertQuestion(questionText8, surveyID) == 1) {
                 questionText8 = null;
                 surveyID = getSurveyID();
+                userID = getUserID();
                 //surveyID = 0;
                 response = "9 Questions Added.";
                 //return response;
@@ -380,6 +380,7 @@ public class QuestionController implements Serializable {
             if (helper.insertQuestion(questionText9, surveyID) == 1) {
                 questionText9 = null;
                 surveyID = getSurveyID();
+                userID = getUserID();
                 //surveyID = 0;
                 response = "All Questions Added.";
                 //return response;

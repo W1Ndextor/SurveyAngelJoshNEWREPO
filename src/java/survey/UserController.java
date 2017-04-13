@@ -77,20 +77,9 @@ public class UserController implements Serializable {
     }
 
     
-    //This is a change to the usercontroller file to ensure that the project and files push correctly.
-    //This is a change to the usercontroller file to ensure that the project and files push correctly.
-    
-
     public String getResponse() {
         response = null;
-        //if(!UserFname.isEmpty() || !UserLname.isEmpty() || !UserEmail.isEmpty()){
-            //UserFname = null;
-                //UserLname = null;
-                //UserEmail = null;
-                //response=null;
-                //return response;
-                
-        //}
+        
         if(UserFname != null && UserLname != null && UserEmail != null){
             
             
@@ -107,11 +96,9 @@ public class UserController implements Serializable {
                 UserLname = null;
                 UserEmail = null;
                 response = "User Not Added.";
-               // return response;
             }
         } else {
             response = " ";
-           // return response;
         }
         
         return response;
@@ -119,8 +106,5 @@ public class UserController implements Serializable {
 
     public void setResponse(String response) {
         this.response = response;
-    }
-    
-    
-    
+    }   
 }
