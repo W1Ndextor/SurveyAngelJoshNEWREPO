@@ -51,7 +51,7 @@ public class deleteSurveyController implements Serializable {
 
     public String deleteSurvey(int surveyId) {
         helper.deleteSurvey(surveyId);
-        return "index";       
+        return "delete";       
     }
 
     public void setDeleteSurvey(int deleteSurvey) {
