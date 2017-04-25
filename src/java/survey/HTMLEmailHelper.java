@@ -41,7 +41,7 @@ public class HTMLEmailHelper {
             msg.setFrom(new InternetAddress(email));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             
-            Transport transport = ses.getTransport("smpts");
+            Transport transport = ses.getTransport("smtps");
             transport.connect(host, port, username, password);
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();

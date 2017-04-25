@@ -21,7 +21,9 @@ public class deleteSurveyController implements Serializable {
     int deleteSurvey;
     int userIdArg;
     int surveyIdArg;
+    int respondentIdArg;
     int userId;
+    int respondentId;
         
     deleteSurveyHelper helper;
     Survey survey;
@@ -64,6 +66,14 @@ public class deleteSurveyController implements Serializable {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getRespondentId() {
+        return respondentId;
+    }
+
+    public void setRespondentId(int respondentId) {
+        this.respondentId = respondentId;
     }
     
     public String getUserIds(int surveyIdArg, int userIdArg){

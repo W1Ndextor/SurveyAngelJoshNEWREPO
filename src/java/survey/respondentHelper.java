@@ -88,6 +88,37 @@ public class respondentHelper {
         return respondentList.get(0).getRespondentId();
     }
     
+    public String getSurveyTitleByID(int surveyId, int userId){
+        
+        Survey survey = null;
+        
+        String sql = "select * from survey where User_ID = :userId";
+        
+        try{
+             
+            // if this transaction is not active, make it active
+            if(!this.session.getTransaction().isActive()){
+                session.beginTransaction();
+            }
+            
+            // creating actual query that will be executed against the database
+            SQLQuery q = session.createSQLQuery(sql);
+            
+            // associating the actor table and the actor POJO
+            q.addEntity(Survey.class);
+            
+            q.setParameter("userId", userId);
+            
+            // executes the query and returns it as a list
+            survey = (Survey) q.uniqueResult();
+            
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+             
+        return survey.getSurveyName();
+    }
+    
     private int insertSurveyRespondent(int respondent, int survey){
         
         int result = 0;
@@ -128,7 +159,37 @@ public class respondentHelper {
         return result;
     }
     
-     
+    public Respondent getsRespondentId(int respondentId){
+        
+        Respondent respondent = null;
+        
+        String sql = "select * from respondent where Respondent_ID = :id";
+        
+        try{
+             
+         // if this transaction is not active, make it active
+            if(!this.session.getTransaction().isActive()){
+                session.beginTransaction();
+            }
+            
+            // creating actual query that will be executed against the database
+            SQLQuery q = session.createSQLQuery(sql);
+            
+            // associating the actor table and the actor POJO
+            q.addEntity(Respondent.class);
+            
+            q.setParameter("id", respondentId);
+            
+            // executes the query and returns it as a list
+            respondent = (Respondent) q.uniqueResult();
+            
+                       
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        
+        return respondent;
+    }
 
     public int insert(String respondentEmail, int surveyId){
 

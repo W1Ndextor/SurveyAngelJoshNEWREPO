@@ -4,6 +4,7 @@ package survey;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -21,6 +22,8 @@ public class respondentController implements Serializable {
     String respondentEmail4;
     String response;
     
+    String surveyTitle;
+    
     int surveyId;
     int respondentId;
     int surveyIdArg;
@@ -32,8 +35,12 @@ public class respondentController implements Serializable {
     Respondent respondent;
     Survey survey;
     
-    String emailAddress;
+    private Respondent selected;
     
+    private int selectedId;
+    
+    String emailAddress;
+    String emailResponse;
     
     public respondentController() {
         helper = new respondentHelper();        
@@ -96,8 +103,6 @@ public class respondentController implements Serializable {
         this.userID = userID;
     }
     
-    
-    
      public String getSurveyIds(int surveyIdArg, int userIdArg){
         surveyId = surveyIdArg;
         userID = userIdArg;
@@ -112,6 +117,25 @@ public class respondentController implements Serializable {
         this.respondentId = respondentId;
     }
 
+    public Respondent getSelected() {
+        if(selected == null){
+            selected = new Respondent();
+        }
+        return selected;
+    }
+
+    public void setSelected(Respondent selected) {
+        this.selected = selected;
+    }
+
+    public int getSelectedId() {
+        return selectedId;
+    }
+
+    public void setSelectedId(int selectedId) {
+        this.selectedId = selectedId;
+    }
+
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -120,31 +144,208 @@ public class respondentController implements Serializable {
         this.emailAddress = emailAddress;
     }
 
+    public String getSurveyTitle() {
+        surveyTitle = helper.getSurveyTitleByID(surveyId, userID);
+        return surveyTitle;
+    }
+
+    public void setSurveyTitle(String surveyTitle) {
+        this.surveyTitle = surveyTitle;
+    }    
+    
+    public String getEmailResponse() {
+        
+        emailResponse = null;
+        
+        
+        if(respondentEmail != null  && !respondentEmail.isEmpty()){
+            
+            int result = 0;
+            
+            // Need to build the html body here. Look at YouTube
+            StringBuilder emailBody = new StringBuilder();
+            emailBody.append("<table width=\"100%\" height=\"100%\" style=");
+            emailBody.append("\"background-color: transparent; border-spacing: 0; border-collapse: collapse; border-top: 1px");
+            emailBody.append("><tbody>");
+            emailBody.append("<tr><td style=");
+            emailBody.append("\"padding: .5em 1em; vertical-align: top; text-align: left; border-bottom: 1px");
+            emailBody.append(">You've been asked to complete the following survey entitled " + getSurveyTitle() + ".");
+            emailBody.append("</td></tr>");
+            emailBody.append("<tr><td style=");
+            emailBody.append(">http://localhost:8080/SurveyAngelJoshNEWREPO/</td><td style=>");
+            emailBody.append("</td></tr>");
+            emailBody.append("</tbody></table>");
+            
+            String subject = "Please Respond to the Following Survey";
+            
+            HTMLEmailHelper emailHelper = new HTMLEmailHelper();
+            result = emailHelper.send(respondentEmail, subject, emailBody.toString());
+            
+            if(result == 1){
+                emailAddress = null;
+                emailResponse = "A Email Was Sent.";
+            }else{
+                emailAddress = null;
+                emailResponse = "Email Not Sent.";
+            }
+        }
+        
+        if(respondentEmail1 != null  && !respondentEmail1.isEmpty()){
+            
+            int results = 0;
+            
+            
+            // Need to build the html body here. Look at YouTube
+            StringBuilder emailBody = new StringBuilder();
+            emailBody.append("<table width=\"100%\" height=\"100%\" style=");
+            emailBody.append("\"background-color: transparent; border-spacing: 0; border-collapse: collapse; border-top: 1px");
+            emailBody.append("><tbody>");
+            emailBody.append("<tr><td style=");
+            emailBody.append("\"padding: .5em 1em; vertical-align: top; text-align: left; border-bottom: 1px");
+            emailBody.append(">You've been asked to complete the following survey entitled " + getSurveyTitle() + ".");
+            emailBody.append("</td></tr>");
+            emailBody.append("<tr><td style=");
+            emailBody.append(">http://localhost:8080/SurveyAngelJoshNEWREPO/</td><td style=>");
+            emailBody.append("</td></tr>");
+            emailBody.append("</tbody></table>");
+            
+            String subject = "Please Respond to the Following Survey";
+            
+            HTMLEmailHelper emailHelper = new HTMLEmailHelper();
+            results = emailHelper.send(respondentEmail1, subject, emailBody.toString());
+            
+            if(results == 1){
+                emailAddress = null;
+                emailResponse = "Two Emails Were Sent.";
+            }else{
+                emailAddress = null;
+                emailResponse = "Emails Were Not Sent.";
+            }
+        }
+        
+        if(respondentEmail2 != null  && !respondentEmail2.isEmpty()){
+            
+            int result3 = 0;
+            
+            // Need to build the html body here. Look at YouTube
+            StringBuilder emailBody = new StringBuilder();
+            emailBody.append("<table width=\"100%\" height=\"100%\" style=");
+            emailBody.append("\"background-color: transparent; border-spacing: 0; border-collapse: collapse; border-top: 1px");
+            emailBody.append("><tbody>");
+            emailBody.append("<tr><td style=");
+            emailBody.append("\"padding: .5em 1em; vertical-align: top; text-align: left; border-bottom: 1px");
+            emailBody.append(">You've been asked to complete the following survey entitled " + getSurveyTitle() + ".");
+            emailBody.append("</td></tr>");
+            emailBody.append("<tr><td style=");
+            emailBody.append(">http://localhost:8080/SurveyAngelJoshNEWREPO/</td><td style=>");
+            emailBody.append("</td></tr>");
+            emailBody.append("</tbody></table>");
+            
+            String subject = "Please Respond to the Following Survey";
+            
+            HTMLEmailHelper emailHelper = new HTMLEmailHelper();
+            result3 = emailHelper.send(respondentEmail2, subject, emailBody.toString());
+            
+            if(result3 == 1){
+                emailAddress = null;
+                emailResponse = "Three Emails Were Sent.";
+            }else{
+                emailAddress = null;
+                emailResponse = "Emails Not Sent.";
+            }
+        }
+        
+        if(respondentEmail3 != null  && !respondentEmail3.isEmpty()){
+            
+            int result4 = 0;
+            
+            // Need to build the html body here. Look at YouTube
+            StringBuilder emailBody = new StringBuilder();
+            emailBody.append("<table width=\"100%\" height=\"100%\" style=");
+            emailBody.append("\"background-color: transparent; border-spacing: 0; border-collapse: collapse; border-top: 1px");
+            emailBody.append("><tbody>");
+            emailBody.append("<tr><td style=");
+            emailBody.append("\"padding: .5em 1em; vertical-align: top; text-align: left; border-bottom: 1px");
+            emailBody.append(">You've been asked to complete the following survey entitled " + getSurveyTitle() + ".");
+            emailBody.append("</td></tr>");
+            emailBody.append("<tr><td style=");
+            emailBody.append(">http://localhost:8080/SurveyAngelJoshNEWREPO/</td><td style=>");
+            emailBody.append("</td></tr>");
+            emailBody.append("</tbody></table>");
+            
+            String subject = "Please Respond to the Following Survey";
+            
+            HTMLEmailHelper emailHelper = new HTMLEmailHelper();
+            result4 = emailHelper.send(respondentEmail3, subject, emailBody.toString());
+            
+            if(result4 == 1){
+                emailAddress = null;
+                emailResponse = "Four Emails Were Sent.";
+            }else{
+                emailAddress = null;
+                emailResponse = "Emails Were Not Sent.";
+            }
+        }
+        
+        if(respondentEmail4 != null  && !respondentEmail4.isEmpty()){
+            
+            int result5 = 0;
+            
+            // Need to build the html body here. Look at YouTube
+            StringBuilder emailBody = new StringBuilder();
+            emailBody.append("<table width=\"100%\" height=\"100%\" style=");
+            emailBody.append("\"background-color: transparent; border-spacing: 0; border-collapse: collapse; border-top: 1px");
+            emailBody.append("><tbody>");
+            emailBody.append("<tr><td style=");
+            emailBody.append("\"padding: .5em 1em; vertical-align: top; text-align: left; border-bottom: 1px");
+            emailBody.append(">You've been asked to complete the following survey entitled " + getSurveyTitle() + ".");
+            emailBody.append("</td></tr>");
+            emailBody.append("<tr><td style=");
+            emailBody.append(">http://localhost:8080/SurveyAngelJoshNEWREPO/</td><td style=>");
+            emailBody.append("</td></tr>");
+            emailBody.append("</tbody></table>");
+            
+            String subject = "Please Respond to the Following Survey";
+            
+            HTMLEmailHelper emailHelper = new HTMLEmailHelper();
+            result5 = emailHelper.send(respondentEmail4, subject, emailBody.toString());
+            
+            if(result5 == 1){
+                emailAddress = null;
+                emailResponse = "Five Emails Were Sent.";
+            }else{
+                emailAddress = null;
+                emailResponse = "Emails Were Not Sent.";
+            }
+        }
+        
+        return emailResponse;
+    }
+
+    public String prepareEmail(){
+        response = " ";
+        return "respondent";
+    }
     
     
     //heres a second demo for pushing
-    
     public void dropItHard() {
       
-    respondentEmail=null;
-    respondentEmail1=null;
-    respondentEmail2=null;
-    respondentEmail3=null;
-    respondentEmail4=null;
-    response=null;
+    respondentEmail = null;
+    respondentEmail1 = null;
+    respondentEmail2 = null;
+    respondentEmail3 = null;
+    respondentEmail4 = null;
+    response = null;
     
-    surveyId=getSurveyId();
-    respondentId=0;
-    //surveyIdArg=0;
+    surveyId = getSurveyId();
     
-    helper=null;
+    helper = null;
     
-    respondent=null;
-    survey=null;
+    respondent = null;
+    survey = null;
     
-    emailAddress=null;
-    
-
+    emailAddress = null;
     }
     
 
